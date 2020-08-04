@@ -1,13 +1,13 @@
 REST API Path for TODO CRUD Operations
 
-#Add Todo Item
-POST : /todo
+#Add Task Item
+POST : /task
 
-#Update Todo Item
-PUT: /todo
+#Update Task Item
+PUT: /task
 
 #Delete Item
-DELETE: /todo/<enter item id>
+DELETE: /task/<enter item id>
 
-#Retrieve todo items
-GET: /todo/<enter search term>
+#Retrieve task items
+GET: /task/<enter search term>

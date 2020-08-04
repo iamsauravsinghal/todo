@@ -1,12 +1,12 @@
 2020-08-01 18:53:20 jdbc[3]: exception
 org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "TODO" already exists; SQL statement:
-CREATE TABLE todo( id INT AUTO_INCREMENT PRIMARY KEY, task_name VARCHAR(500) NOT NULL, priority INT NOT NULL, expected_date DATE NOT NULL ) [42101-200]
+CREATE TABLE task( id INT AUTO_INCREMENT PRIMARY KEY, task_name VARCHAR(500) NOT NULL, priority INT NOT NULL, expected_date DATE NOT NULL ) [42101-200]
 2020-08-01 18:55:19 jdbc[3]: exception
 org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "CREATE TABLE TODO IF[*] NOT EXISTS( ID INT AUTO_INCREMENT PRIMARY KEY, TASK_NAME VARCHAR(500) NOT NULL, PRIORITY INT NOT NULL, EXPECTED_DATE DATE NOT NULL )"; SQL statement:
-CREATE TABLE todo IF NOT EXISTS( id INT AUTO_INCREMENT PRIMARY KEY, task_name VARCHAR(500) NOT NULL, priority INT NOT NULL, expected_date DATE NOT NULL ) [42000-200]
+CREATE TABLE task IF NOT EXISTS( id INT AUTO_INCREMENT PRIMARY KEY, task_name VARCHAR(500) NOT NULL, priority INT NOT NULL, expected_date DATE NOT NULL ) [42000-200]
 2020-08-01 18:56:53 jdbc[3]: exception
 org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "IF[*] NOT EXISTS(CREATE TABLE TODO( ID INT AUTO_INCREMENT PRIMARY KEY, TASK_NAME VARCHAR(500) NOT NULL, PRIORITY INT NOT NULL, EXPECTED_DATE DATE NOT NULL ) )"; SQL statement:
-IF NOT EXISTS(CREATE TABLE todo( id INT AUTO_INCREMENT PRIMARY KEY, task_name VARCHAR(500) NOT NULL, priority INT NOT NULL, expected_date DATE NOT NULL ) ) [42000-200]
+IF NOT EXISTS(CREATE TABLE task( id INT AUTO_INCREMENT PRIMARY KEY, task_name VARCHAR(500) NOT NULL, priority INT NOT NULL, expected_date DATE NOT NULL ) ) [42000-200]
 2020-08-02 16:02:42 jdbc[3]: exception
 org.h2.jdbc.JdbcSQLNonTransientConnectionException: Database is already closed (to disable automatic closing at VM shutdown, add ";DB_CLOSE_ON_EXIT=FALSE" to the db URL) [90121-200]
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:622)
@@ -344,7 +344,7 @@ org.h2.jdbc.JdbcSQLNonTransientConnectionException: Database is already closed (
 	at org.springframework.context.support.AbstractApplicationContext$1.run(AbstractApplicationContext.java:949)
 2020-08-02 16:22:49 jdbc[3]: exception
 org.h2.jdbc.JdbcSQLSyntaxErrorException: Column count does not match; SQL statement:
-INSERT INTO todo VALUES ('Complete task A', 3, '2020-08-02') [21002-200]
+INSERT INTO task VALUES ('Complete task A', 3, '2020-08-02') [21002-200]
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:453)
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:429)
 	at org.h2.message.DbException.get(DbException.java:205)
@@ -447,7 +447,7 @@ org.h2.jdbc.JdbcSQLNonTransientConnectionException: Database is already closed (
 	at org.springframework.context.support.AbstractApplicationContext$1.run(AbstractApplicationContext.java:949)
 2020-08-02 16:23:25 jdbc[3]: exception
 org.h2.jdbc.JdbcSQLSyntaxErrorException: Column count does not match; SQL statement:
-INSERT INTO todo VALUES ('Complete task A', 3, '2020-08-02') [21002-200]
+INSERT INTO task VALUES ('Complete task A', 3, '2020-08-02') [21002-200]
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:453)
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:429)
 	at org.h2.message.DbException.get(DbException.java:205)
@@ -550,7 +550,7 @@ org.h2.jdbc.JdbcSQLNonTransientConnectionException: Database is already closed (
 	at org.springframework.context.support.AbstractApplicationContext$1.run(AbstractApplicationContext.java:949)
 2020-08-02 16:24:33 jdbc[3]: exception
 org.h2.jdbc.JdbcSQLSyntaxErrorException: Column count does not match; SQL statement:
-INSERT INTO todo VALUES ('Complete task A', 3, '2020-08-02') [21002-200]
+INSERT INTO task VALUES ('Complete task A', 3, '2020-08-02') [21002-200]
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:453)
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:429)
 	at org.h2.message.DbException.get(DbException.java:205)
@@ -653,7 +653,7 @@ org.h2.jdbc.JdbcSQLNonTransientConnectionException: Database is already closed (
 	at org.springframework.context.support.AbstractApplicationContext$1.run(AbstractApplicationContext.java:949)
 2020-08-02 16:26:01 jdbc[3]: exception
 org.h2.jdbc.JdbcSQLSyntaxErrorException: Column "Complete task A" not found; SQL statement:
-INSERT INTO todo VALUES (null,"Complete task A", 3, "2020-08-02") [42122-200]
+INSERT INTO task VALUES (null,"Complete task A", 3, "2020-08-02") [42122-200]
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:453)
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:429)
 	at org.h2.message.DbException.get(DbException.java:205)
@@ -757,7 +757,7 @@ org.h2.jdbc.JdbcSQLNonTransientConnectionException: Database is already closed (
 	at org.springframework.context.support.AbstractApplicationContext$1.run(AbstractApplicationContext.java:949)
 2020-08-02 16:29:02 jdbc[3]: exception
 org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "INSERT INTO TODO ('task_name'[*],'priority','expected_date') VALUES(NULL,'Complete task A', 3, '2020-08-02')"; expected "identifier"; SQL statement:
-INSERT INTO todo ('task_name','priority','expected_date') VALUES(null,'Complete task A', 3, '2020-08-02') [42001-200]
+INSERT INTO task ('task_name','priority','expected_date') VALUES(null,'Complete task A', 3, '2020-08-02') [42001-200]
 2020-08-02 16:29:02 jdbc[3]: exception
 org.h2.jdbc.JdbcSQLNonTransientConnectionException: Database is already closed (to disable automatic closing at VM shutdown, add ";DB_CLOSE_ON_EXIT=FALSE" to the db URL) [90121-200]
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:622)
@@ -827,7 +827,7 @@ org.h2.jdbc.JdbcSQLNonTransientConnectionException: Database is already closed (
 	at org.springframework.context.support.AbstractApplicationContext$1.run(AbstractApplicationContext.java:949)
 2020-08-02 16:30:00 jdbc[3]: exception
 org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "INSERT INTO TODO ('task_name'[*],'priority','expected_date') VALUES('Complete task A', 3, '2020-08-02')"; expected "identifier"; SQL statement:
-INSERT INTO todo ('task_name','priority','expected_date') VALUES('Complete task A', 3, '2020-08-02') [42001-200]
+INSERT INTO task ('task_name','priority','expected_date') VALUES('Complete task A', 3, '2020-08-02') [42001-200]
 2020-08-02 16:30:00 jdbc[3]: exception
 org.h2.jdbc.JdbcSQLNonTransientConnectionException: Database is already closed (to disable automatic closing at VM shutdown, add ";DB_CLOSE_ON_EXIT=FALSE" to the db URL) [90121-200]
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:622)
@@ -897,9 +897,9 @@ org.h2.jdbc.JdbcSQLNonTransientConnectionException: Database is already closed (
 	at org.springframework.context.support.AbstractApplicationContext$1.run(AbstractApplicationContext.java:949)
 2020-08-02 16:30:42 jdbc[3]: exception
 org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "INSERT INTO TODO ('task_name'[*],'priority','expected_date') VALUES('Complete task A', 3, '2020-08-02')"; expected "identifier"; SQL statement:
-INSERT INTO todo ('task_name','priority','expected_date') VALUES('Complete task A', 3, '2020-08-02') [42001-200]
+INSERT INTO task ('task_name','priority','expected_date') VALUES('Complete task A', 3, '2020-08-02') [42001-200]
 2020-08-02 16:32:47 database: flush
-org.h2.message.DbException: General error: "java.lang.IllegalStateException: The file is locked: nio:D:/Projects/SpringBoot/todo/data/todo.mv.db [1.4.200/7]" [50000-200]
+org.h2.message.DbException: General error: "java.lang.IllegalStateException: The file is locked: nio:D:/Projects/SpringBoot/task/data/task.mv.db [1.4.200/7]" [50000-200]
 	at org.h2.message.DbException.get(DbException.java:194)
 	at org.h2.message.DbException.convert(DbException.java:347)
 	at org.h2.mvstore.db.MVTableEngine$1.uncaughtException(MVTableEngine.java:93)
@@ -994,18 +994,18 @@ org.h2.message.DbException: General error: "java.lang.IllegalStateException: The
 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:315)
 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1237)
 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1226)
-	at com.saurav.todo.TodoApplication.main(TodoApplication.java:10)
-Caused by: org.h2.jdbc.JdbcSQLNonTransientException: General error: "java.lang.IllegalStateException: The file is locked: nio:D:/Projects/SpringBoot/todo/data/todo.mv.db [1.4.200/7]" [50000-200]
+	at com.saurav.task.TaskApplication.main(TaskApplication.java:10)
+Caused by: org.h2.jdbc.JdbcSQLNonTransientException: General error: "java.lang.IllegalStateException: The file is locked: nio:D:/Projects/SpringBoot/task/data/task.mv.db [1.4.200/7]" [50000-200]
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:505)
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:429)
 	... 95 more
-Caused by: java.lang.IllegalStateException: The file is locked: nio:D:/Projects/SpringBoot/todo/data/todo.mv.db [1.4.200/7]
+Caused by: java.lang.IllegalStateException: The file is locked: nio:D:/Projects/SpringBoot/task/data/task.mv.db [1.4.200/7]
 	at org.h2.mvstore.DataUtils.newIllegalStateException(DataUtils.java:950)
 	at org.h2.mvstore.FileStore.open(FileStore.java:172)
 	at org.h2.mvstore.MVStore.<init>(MVStore.java:381)
 	... 89 more
 2020-08-02 16:32:48 database: flush
-org.h2.message.DbException: General error: "java.lang.IllegalStateException: The file is locked: nio:D:/Projects/SpringBoot/todo/data/todo.mv.db [1.4.200/7]" [50000-200]
+org.h2.message.DbException: General error: "java.lang.IllegalStateException: The file is locked: nio:D:/Projects/SpringBoot/task/data/task.mv.db [1.4.200/7]" [50000-200]
 	at org.h2.message.DbException.get(DbException.java:194)
 	at org.h2.message.DbException.convert(DbException.java:347)
 	at org.h2.mvstore.db.MVTableEngine$1.uncaughtException(MVTableEngine.java:93)
@@ -1076,18 +1076,18 @@ org.h2.message.DbException: General error: "java.lang.IllegalStateException: The
 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:315)
 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1237)
 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1226)
-	at com.saurav.todo.TodoApplication.main(TodoApplication.java:10)
-Caused by: org.h2.jdbc.JdbcSQLNonTransientException: General error: "java.lang.IllegalStateException: The file is locked: nio:D:/Projects/SpringBoot/todo/data/todo.mv.db [1.4.200/7]" [50000-200]
+	at com.saurav.task.TaskApplication.main(TaskApplication.java:10)
+Caused by: org.h2.jdbc.JdbcSQLNonTransientException: General error: "java.lang.IllegalStateException: The file is locked: nio:D:/Projects/SpringBoot/task/data/task.mv.db [1.4.200/7]" [50000-200]
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:505)
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:429)
 	... 71 more
-Caused by: java.lang.IllegalStateException: The file is locked: nio:D:/Projects/SpringBoot/todo/data/todo.mv.db [1.4.200/7]
+Caused by: java.lang.IllegalStateException: The file is locked: nio:D:/Projects/SpringBoot/task/data/task.mv.db [1.4.200/7]
 	at org.h2.mvstore.DataUtils.newIllegalStateException(DataUtils.java:950)
 	at org.h2.mvstore.FileStore.open(FileStore.java:172)
 	at org.h2.mvstore.MVStore.<init>(MVStore.java:381)
 	... 65 more
 2020-08-02 16:32:50 database: flush
-org.h2.message.DbException: General error: "java.lang.IllegalStateException: The file is locked: nio:D:/Projects/SpringBoot/todo/data/todo.mv.db [1.4.200/7]" [50000-200]
+org.h2.message.DbException: General error: "java.lang.IllegalStateException: The file is locked: nio:D:/Projects/SpringBoot/task/data/task.mv.db [1.4.200/7]" [50000-200]
 	at org.h2.message.DbException.get(DbException.java:194)
 	at org.h2.message.DbException.convert(DbException.java:347)
 	at org.h2.mvstore.db.MVTableEngine$1.uncaughtException(MVTableEngine.java:93)
@@ -1141,17 +1141,17 @@ org.h2.message.DbException: General error: "java.lang.IllegalStateException: The
 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
 	at java.lang.Thread.run(Thread.java:813)
-Caused by: org.h2.jdbc.JdbcSQLNonTransientException: General error: "java.lang.IllegalStateException: The file is locked: nio:D:/Projects/SpringBoot/todo/data/todo.mv.db [1.4.200/7]" [50000-200]
+Caused by: org.h2.jdbc.JdbcSQLNonTransientException: General error: "java.lang.IllegalStateException: The file is locked: nio:D:/Projects/SpringBoot/task/data/task.mv.db [1.4.200/7]" [50000-200]
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:505)
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:429)
 	... 53 more
-Caused by: java.lang.IllegalStateException: The file is locked: nio:D:/Projects/SpringBoot/todo/data/todo.mv.db [1.4.200/7]
+Caused by: java.lang.IllegalStateException: The file is locked: nio:D:/Projects/SpringBoot/task/data/task.mv.db [1.4.200/7]
 	at org.h2.mvstore.DataUtils.newIllegalStateException(DataUtils.java:950)
 	at org.h2.mvstore.FileStore.open(FileStore.java:172)
 	at org.h2.mvstore.MVStore.<init>(MVStore.java:381)
 	... 47 more
 2020-08-02 16:32:52 database: flush
-org.h2.message.DbException: General error: "java.lang.IllegalStateException: The file is locked: nio:D:/Projects/SpringBoot/todo/data/todo.mv.db [1.4.200/7]" [50000-200]
+org.h2.message.DbException: General error: "java.lang.IllegalStateException: The file is locked: nio:D:/Projects/SpringBoot/task/data/task.mv.db [1.4.200/7]" [50000-200]
 	at org.h2.message.DbException.get(DbException.java:194)
 	at org.h2.message.DbException.convert(DbException.java:347)
 	at org.h2.mvstore.db.MVTableEngine$1.uncaughtException(MVTableEngine.java:93)
@@ -1201,17 +1201,17 @@ org.h2.message.DbException: General error: "java.lang.IllegalStateException: The
 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
 	at java.lang.Thread.run(Thread.java:813)
-Caused by: org.h2.jdbc.JdbcSQLNonTransientException: General error: "java.lang.IllegalStateException: The file is locked: nio:D:/Projects/SpringBoot/todo/data/todo.mv.db [1.4.200/7]" [50000-200]
+Caused by: org.h2.jdbc.JdbcSQLNonTransientException: General error: "java.lang.IllegalStateException: The file is locked: nio:D:/Projects/SpringBoot/task/data/task.mv.db [1.4.200/7]" [50000-200]
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:505)
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:429)
 	... 49 more
-Caused by: java.lang.IllegalStateException: The file is locked: nio:D:/Projects/SpringBoot/todo/data/todo.mv.db [1.4.200/7]
+Caused by: java.lang.IllegalStateException: The file is locked: nio:D:/Projects/SpringBoot/task/data/task.mv.db [1.4.200/7]
 	at org.h2.mvstore.DataUtils.newIllegalStateException(DataUtils.java:950)
 	at org.h2.mvstore.FileStore.open(FileStore.java:172)
 	at org.h2.mvstore.MVStore.<init>(MVStore.java:381)
 	... 43 more
 2020-08-02 16:34:12 database: flush
-org.h2.message.DbException: General error: "java.lang.IllegalStateException: The file is locked: nio:D:/Projects/SpringBoot/todo/data/todo.mv.db [1.4.200/7]" [50000-200]
+org.h2.message.DbException: General error: "java.lang.IllegalStateException: The file is locked: nio:D:/Projects/SpringBoot/task/data/task.mv.db [1.4.200/7]" [50000-200]
 	at org.h2.message.DbException.get(DbException.java:194)
 	at org.h2.message.DbException.convert(DbException.java:347)
 	at org.h2.mvstore.db.MVTableEngine$1.uncaughtException(MVTableEngine.java:93)
@@ -1306,18 +1306,18 @@ org.h2.message.DbException: General error: "java.lang.IllegalStateException: The
 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:315)
 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1237)
 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1226)
-	at com.saurav.todo.TodoApplication.main(TodoApplication.java:10)
-Caused by: org.h2.jdbc.JdbcSQLNonTransientException: General error: "java.lang.IllegalStateException: The file is locked: nio:D:/Projects/SpringBoot/todo/data/todo.mv.db [1.4.200/7]" [50000-200]
+	at com.saurav.task.TaskApplication.main(TaskApplication.java:10)
+Caused by: org.h2.jdbc.JdbcSQLNonTransientException: General error: "java.lang.IllegalStateException: The file is locked: nio:D:/Projects/SpringBoot/task/data/task.mv.db [1.4.200/7]" [50000-200]
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:505)
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:429)
 	... 95 more
-Caused by: java.lang.IllegalStateException: The file is locked: nio:D:/Projects/SpringBoot/todo/data/todo.mv.db [1.4.200/7]
+Caused by: java.lang.IllegalStateException: The file is locked: nio:D:/Projects/SpringBoot/task/data/task.mv.db [1.4.200/7]
 	at org.h2.mvstore.DataUtils.newIllegalStateException(DataUtils.java:950)
 	at org.h2.mvstore.FileStore.open(FileStore.java:172)
 	at org.h2.mvstore.MVStore.<init>(MVStore.java:381)
 	... 89 more
 2020-08-02 16:34:14 database: flush
-org.h2.message.DbException: General error: "java.lang.IllegalStateException: The file is locked: nio:D:/Projects/SpringBoot/todo/data/todo.mv.db [1.4.200/7]" [50000-200]
+org.h2.message.DbException: General error: "java.lang.IllegalStateException: The file is locked: nio:D:/Projects/SpringBoot/task/data/task.mv.db [1.4.200/7]" [50000-200]
 	at org.h2.message.DbException.get(DbException.java:194)
 	at org.h2.message.DbException.convert(DbException.java:347)
 	at org.h2.mvstore.db.MVTableEngine$1.uncaughtException(MVTableEngine.java:93)
@@ -1388,18 +1388,18 @@ org.h2.message.DbException: General error: "java.lang.IllegalStateException: The
 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:315)
 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1237)
 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1226)
-	at com.saurav.todo.TodoApplication.main(TodoApplication.java:10)
-Caused by: org.h2.jdbc.JdbcSQLNonTransientException: General error: "java.lang.IllegalStateException: The file is locked: nio:D:/Projects/SpringBoot/todo/data/todo.mv.db [1.4.200/7]" [50000-200]
+	at com.saurav.task.TaskApplication.main(TaskApplication.java:10)
+Caused by: org.h2.jdbc.JdbcSQLNonTransientException: General error: "java.lang.IllegalStateException: The file is locked: nio:D:/Projects/SpringBoot/task/data/task.mv.db [1.4.200/7]" [50000-200]
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:505)
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:429)
 	... 71 more
-Caused by: java.lang.IllegalStateException: The file is locked: nio:D:/Projects/SpringBoot/todo/data/todo.mv.db [1.4.200/7]
+Caused by: java.lang.IllegalStateException: The file is locked: nio:D:/Projects/SpringBoot/task/data/task.mv.db [1.4.200/7]
 	at org.h2.mvstore.DataUtils.newIllegalStateException(DataUtils.java:950)
 	at org.h2.mvstore.FileStore.open(FileStore.java:172)
 	at org.h2.mvstore.MVStore.<init>(MVStore.java:381)
 	... 65 more
 2020-08-02 16:34:15 database: flush
-org.h2.message.DbException: General error: "java.lang.IllegalStateException: The file is locked: nio:D:/Projects/SpringBoot/todo/data/todo.mv.db [1.4.200/7]" [50000-200]
+org.h2.message.DbException: General error: "java.lang.IllegalStateException: The file is locked: nio:D:/Projects/SpringBoot/task/data/task.mv.db [1.4.200/7]" [50000-200]
 	at org.h2.message.DbException.get(DbException.java:194)
 	at org.h2.message.DbException.convert(DbException.java:347)
 	at org.h2.mvstore.db.MVTableEngine$1.uncaughtException(MVTableEngine.java:93)
@@ -1453,17 +1453,17 @@ org.h2.message.DbException: General error: "java.lang.IllegalStateException: The
 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
 	at java.lang.Thread.run(Thread.java:813)
-Caused by: org.h2.jdbc.JdbcSQLNonTransientException: General error: "java.lang.IllegalStateException: The file is locked: nio:D:/Projects/SpringBoot/todo/data/todo.mv.db [1.4.200/7]" [50000-200]
+Caused by: org.h2.jdbc.JdbcSQLNonTransientException: General error: "java.lang.IllegalStateException: The file is locked: nio:D:/Projects/SpringBoot/task/data/task.mv.db [1.4.200/7]" [50000-200]
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:505)
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:429)
 	... 53 more
-Caused by: java.lang.IllegalStateException: The file is locked: nio:D:/Projects/SpringBoot/todo/data/todo.mv.db [1.4.200/7]
+Caused by: java.lang.IllegalStateException: The file is locked: nio:D:/Projects/SpringBoot/task/data/task.mv.db [1.4.200/7]
 	at org.h2.mvstore.DataUtils.newIllegalStateException(DataUtils.java:950)
 	at org.h2.mvstore.FileStore.open(FileStore.java:172)
 	at org.h2.mvstore.MVStore.<init>(MVStore.java:381)
 	... 47 more
 2020-08-02 16:34:18 database: flush
-org.h2.message.DbException: General error: "java.lang.IllegalStateException: The file is locked: nio:D:/Projects/SpringBoot/todo/data/todo.mv.db [1.4.200/7]" [50000-200]
+org.h2.message.DbException: General error: "java.lang.IllegalStateException: The file is locked: nio:D:/Projects/SpringBoot/task/data/task.mv.db [1.4.200/7]" [50000-200]
 	at org.h2.message.DbException.get(DbException.java:194)
 	at org.h2.message.DbException.convert(DbException.java:347)
 	at org.h2.mvstore.db.MVTableEngine$1.uncaughtException(MVTableEngine.java:93)
@@ -1513,11 +1513,11 @@ org.h2.message.DbException: General error: "java.lang.IllegalStateException: The
 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
 	at java.lang.Thread.run(Thread.java:813)
-Caused by: org.h2.jdbc.JdbcSQLNonTransientException: General error: "java.lang.IllegalStateException: The file is locked: nio:D:/Projects/SpringBoot/todo/data/todo.mv.db [1.4.200/7]" [50000-200]
+Caused by: org.h2.jdbc.JdbcSQLNonTransientException: General error: "java.lang.IllegalStateException: The file is locked: nio:D:/Projects/SpringBoot/task/data/task.mv.db [1.4.200/7]" [50000-200]
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:505)
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:429)
 	... 49 more
-Caused by: java.lang.IllegalStateException: The file is locked: nio:D:/Projects/SpringBoot/todo/data/todo.mv.db [1.4.200/7]
+Caused by: java.lang.IllegalStateException: The file is locked: nio:D:/Projects/SpringBoot/task/data/task.mv.db [1.4.200/7]
 	at org.h2.mvstore.DataUtils.newIllegalStateException(DataUtils.java:950)
 	at org.h2.mvstore.FileStore.open(FileStore.java:172)
 	at org.h2.mvstore.MVStore.<init>(MVStore.java:381)
@@ -3265,7 +3265,7 @@ org.h2.jdbc.JdbcSQLNonTransientConnectionException: Database is already closed (
 	at org.springframework.context.support.AbstractApplicationContext.doClose(AbstractApplicationContext.java:1030)
 	at org.springframework.context.support.AbstractApplicationContext$1.run(AbstractApplicationContext.java:949)
 2020-08-02 20:21:37 database: flush
-org.h2.message.DbException: General error: "java.lang.IllegalStateException: The file is locked: nio:D:/Projects/SpringBoot/todo/data/todo.mv.db [1.4.200/7]" [50000-200]
+org.h2.message.DbException: General error: "java.lang.IllegalStateException: The file is locked: nio:D:/Projects/SpringBoot/task/data/task.mv.db [1.4.200/7]" [50000-200]
 	at org.h2.message.DbException.get(DbException.java:194)
 	at org.h2.message.DbException.convert(DbException.java:347)
 	at org.h2.mvstore.db.MVTableEngine$1.uncaughtException(MVTableEngine.java:93)
@@ -3299,11 +3299,11 @@ org.h2.message.DbException: General error: "java.lang.IllegalStateException: The
 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
 	at java.lang.Thread.run(Thread.java:813)
-Caused by: org.h2.jdbc.JdbcSQLNonTransientException: General error: "java.lang.IllegalStateException: The file is locked: nio:D:/Projects/SpringBoot/todo/data/todo.mv.db [1.4.200/7]" [50000-200]
+Caused by: org.h2.jdbc.JdbcSQLNonTransientException: General error: "java.lang.IllegalStateException: The file is locked: nio:D:/Projects/SpringBoot/task/data/task.mv.db [1.4.200/7]" [50000-200]
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:505)
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:429)
 	... 33 more
-Caused by: java.lang.IllegalStateException: The file is locked: nio:D:/Projects/SpringBoot/todo/data/todo.mv.db [1.4.200/7]
+Caused by: java.lang.IllegalStateException: The file is locked: nio:D:/Projects/SpringBoot/task/data/task.mv.db [1.4.200/7]
 	at org.h2.mvstore.DataUtils.newIllegalStateException(DataUtils.java:950)
 	at org.h2.mvstore.FileStore.open(FileStore.java:166)
 	at org.h2.mvstore.MVStore.<init>(MVStore.java:381)
@@ -3317,7 +3317,7 @@ Caused by: java.nio.channels.OverlappingFileLockException
 	at org.h2.mvstore.FileStore.open(FileStore.java:163)
 	... 28 more
 2020-08-02 21:08:34 database: flush
-org.h2.message.DbException: General error: "java.lang.IllegalStateException: The file is locked: nio:D:/Projects/SpringBoot/todo/data/todo.mv.db [1.4.200/7]" [50000-200]
+org.h2.message.DbException: General error: "java.lang.IllegalStateException: The file is locked: nio:D:/Projects/SpringBoot/task/data/task.mv.db [1.4.200/7]" [50000-200]
 	at org.h2.message.DbException.get(DbException.java:194)
 	at org.h2.message.DbException.convert(DbException.java:347)
 	at org.h2.mvstore.db.MVTableEngine$1.uncaughtException(MVTableEngine.java:93)
@@ -3469,17 +3469,17 @@ org.h2.message.DbException: General error: "java.lang.IllegalStateException: The
 	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:763)
 	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:463)
 	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:209)
-Caused by: org.h2.jdbc.JdbcSQLNonTransientException: General error: "java.lang.IllegalStateException: The file is locked: nio:D:/Projects/SpringBoot/todo/data/todo.mv.db [1.4.200/7]" [50000-200]
+Caused by: org.h2.jdbc.JdbcSQLNonTransientException: General error: "java.lang.IllegalStateException: The file is locked: nio:D:/Projects/SpringBoot/task/data/task.mv.db [1.4.200/7]" [50000-200]
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:505)
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:429)
 	... 151 more
-Caused by: java.lang.IllegalStateException: The file is locked: nio:D:/Projects/SpringBoot/todo/data/todo.mv.db [1.4.200/7]
+Caused by: java.lang.IllegalStateException: The file is locked: nio:D:/Projects/SpringBoot/task/data/task.mv.db [1.4.200/7]
 	at org.h2.mvstore.DataUtils.newIllegalStateException(DataUtils.java:950)
 	at org.h2.mvstore.FileStore.open(FileStore.java:172)
 	at org.h2.mvstore.MVStore.<init>(MVStore.java:381)
 	... 145 more
 2020-08-02 21:08:37 database: flush
-org.h2.message.DbException: General error: "java.lang.IllegalStateException: The file is locked: nio:D:/Projects/SpringBoot/todo/data/todo.mv.db [1.4.200/7]" [50000-200]
+org.h2.message.DbException: General error: "java.lang.IllegalStateException: The file is locked: nio:D:/Projects/SpringBoot/task/data/task.mv.db [1.4.200/7]" [50000-200]
 	at org.h2.message.DbException.get(DbException.java:194)
 	at org.h2.message.DbException.convert(DbException.java:347)
 	at org.h2.mvstore.db.MVTableEngine$1.uncaughtException(MVTableEngine.java:93)
@@ -3533,17 +3533,17 @@ org.h2.message.DbException: General error: "java.lang.IllegalStateException: The
 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
 	at java.lang.Thread.run(Thread.java:813)
-Caused by: org.h2.jdbc.JdbcSQLNonTransientException: General error: "java.lang.IllegalStateException: The file is locked: nio:D:/Projects/SpringBoot/todo/data/todo.mv.db [1.4.200/7]" [50000-200]
+Caused by: org.h2.jdbc.JdbcSQLNonTransientException: General error: "java.lang.IllegalStateException: The file is locked: nio:D:/Projects/SpringBoot/task/data/task.mv.db [1.4.200/7]" [50000-200]
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:505)
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:429)
 	... 53 more
-Caused by: java.lang.IllegalStateException: The file is locked: nio:D:/Projects/SpringBoot/todo/data/todo.mv.db [1.4.200/7]
+Caused by: java.lang.IllegalStateException: The file is locked: nio:D:/Projects/SpringBoot/task/data/task.mv.db [1.4.200/7]
 	at org.h2.mvstore.DataUtils.newIllegalStateException(DataUtils.java:950)
 	at org.h2.mvstore.FileStore.open(FileStore.java:172)
 	at org.h2.mvstore.MVStore.<init>(MVStore.java:381)
 	... 47 more
 2020-08-02 21:08:39 database: flush
-org.h2.message.DbException: General error: "java.lang.IllegalStateException: The file is locked: nio:D:/Projects/SpringBoot/todo/data/todo.mv.db [1.4.200/7]" [50000-200]
+org.h2.message.DbException: General error: "java.lang.IllegalStateException: The file is locked: nio:D:/Projects/SpringBoot/task/data/task.mv.db [1.4.200/7]" [50000-200]
 	at org.h2.message.DbException.get(DbException.java:194)
 	at org.h2.message.DbException.convert(DbException.java:347)
 	at org.h2.mvstore.db.MVTableEngine$1.uncaughtException(MVTableEngine.java:93)
@@ -3684,17 +3684,17 @@ org.h2.message.DbException: General error: "java.lang.IllegalStateException: The
 	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:763)
 	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:463)
 	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:209)
-Caused by: org.h2.jdbc.JdbcSQLNonTransientException: General error: "java.lang.IllegalStateException: The file is locked: nio:D:/Projects/SpringBoot/todo/data/todo.mv.db [1.4.200/7]" [50000-200]
+Caused by: org.h2.jdbc.JdbcSQLNonTransientException: General error: "java.lang.IllegalStateException: The file is locked: nio:D:/Projects/SpringBoot/task/data/task.mv.db [1.4.200/7]" [50000-200]
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:505)
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:429)
 	... 140 more
-Caused by: java.lang.IllegalStateException: The file is locked: nio:D:/Projects/SpringBoot/todo/data/todo.mv.db [1.4.200/7]
+Caused by: java.lang.IllegalStateException: The file is locked: nio:D:/Projects/SpringBoot/task/data/task.mv.db [1.4.200/7]
 	at org.h2.mvstore.DataUtils.newIllegalStateException(DataUtils.java:950)
 	at org.h2.mvstore.FileStore.open(FileStore.java:172)
 	at org.h2.mvstore.MVStore.<init>(MVStore.java:381)
 	... 134 more
 2020-08-02 21:08:40 database: flush
-org.h2.message.DbException: General error: "java.lang.IllegalStateException: The file is locked: nio:D:/Projects/SpringBoot/todo/data/todo.mv.db [1.4.200/7]" [50000-200]
+org.h2.message.DbException: General error: "java.lang.IllegalStateException: The file is locked: nio:D:/Projects/SpringBoot/task/data/task.mv.db [1.4.200/7]" [50000-200]
 	at org.h2.message.DbException.get(DbException.java:194)
 	at org.h2.message.DbException.convert(DbException.java:347)
 	at org.h2.mvstore.db.MVTableEngine$1.uncaughtException(MVTableEngine.java:93)
@@ -3744,17 +3744,17 @@ org.h2.message.DbException: General error: "java.lang.IllegalStateException: The
 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
 	at java.lang.Thread.run(Thread.java:813)
-Caused by: org.h2.jdbc.JdbcSQLNonTransientException: General error: "java.lang.IllegalStateException: The file is locked: nio:D:/Projects/SpringBoot/todo/data/todo.mv.db [1.4.200/7]" [50000-200]
+Caused by: org.h2.jdbc.JdbcSQLNonTransientException: General error: "java.lang.IllegalStateException: The file is locked: nio:D:/Projects/SpringBoot/task/data/task.mv.db [1.4.200/7]" [50000-200]
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:505)
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:429)
 	... 49 more
-Caused by: java.lang.IllegalStateException: The file is locked: nio:D:/Projects/SpringBoot/todo/data/todo.mv.db [1.4.200/7]
+Caused by: java.lang.IllegalStateException: The file is locked: nio:D:/Projects/SpringBoot/task/data/task.mv.db [1.4.200/7]
 	at org.h2.mvstore.DataUtils.newIllegalStateException(DataUtils.java:950)
 	at org.h2.mvstore.FileStore.open(FileStore.java:172)
 	at org.h2.mvstore.MVStore.<init>(MVStore.java:381)
 	... 43 more
 2020-08-02 21:08:41 database: flush
-org.h2.message.DbException: General error: "java.lang.IllegalStateException: The file is locked: nio:D:/Projects/SpringBoot/todo/data/todo.mv.db [1.4.200/7]" [50000-200]
+org.h2.message.DbException: General error: "java.lang.IllegalStateException: The file is locked: nio:D:/Projects/SpringBoot/task/data/task.mv.db [1.4.200/7]" [50000-200]
 	at org.h2.message.DbException.get(DbException.java:194)
 	at org.h2.message.DbException.convert(DbException.java:347)
 	at org.h2.mvstore.db.MVTableEngine$1.uncaughtException(MVTableEngine.java:93)
@@ -3863,17 +3863,17 @@ org.h2.message.DbException: General error: "java.lang.IllegalStateException: The
 	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:763)
 	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:463)
 	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:209)
-Caused by: org.h2.jdbc.JdbcSQLNonTransientException: General error: "java.lang.IllegalStateException: The file is locked: nio:D:/Projects/SpringBoot/todo/data/todo.mv.db [1.4.200/7]" [50000-200]
+Caused by: org.h2.jdbc.JdbcSQLNonTransientException: General error: "java.lang.IllegalStateException: The file is locked: nio:D:/Projects/SpringBoot/task/data/task.mv.db [1.4.200/7]" [50000-200]
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:505)
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:429)
 	... 108 more
-Caused by: java.lang.IllegalStateException: The file is locked: nio:D:/Projects/SpringBoot/todo/data/todo.mv.db [1.4.200/7]
+Caused by: java.lang.IllegalStateException: The file is locked: nio:D:/Projects/SpringBoot/task/data/task.mv.db [1.4.200/7]
 	at org.h2.mvstore.DataUtils.newIllegalStateException(DataUtils.java:950)
 	at org.h2.mvstore.FileStore.open(FileStore.java:172)
 	at org.h2.mvstore.MVStore.<init>(MVStore.java:381)
 	... 102 more
 2020-08-02 21:09:28 database: flush
-org.h2.message.DbException: General error: "java.lang.IllegalStateException: The file is locked: nio:D:/Projects/SpringBoot/todo/data/todo.mv.db [1.4.200/7]" [50000-200]
+org.h2.message.DbException: General error: "java.lang.IllegalStateException: The file is locked: nio:D:/Projects/SpringBoot/task/data/task.mv.db [1.4.200/7]" [50000-200]
 	at org.h2.message.DbException.get(DbException.java:194)
 	at org.h2.message.DbException.convert(DbException.java:347)
 	at org.h2.mvstore.db.MVTableEngine$1.uncaughtException(MVTableEngine.java:93)
@@ -3907,11 +3907,11 @@ org.h2.message.DbException: General error: "java.lang.IllegalStateException: The
 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
 	at java.lang.Thread.run(Thread.java:813)
-Caused by: org.h2.jdbc.JdbcSQLNonTransientException: General error: "java.lang.IllegalStateException: The file is locked: nio:D:/Projects/SpringBoot/todo/data/todo.mv.db [1.4.200/7]" [50000-200]
+Caused by: org.h2.jdbc.JdbcSQLNonTransientException: General error: "java.lang.IllegalStateException: The file is locked: nio:D:/Projects/SpringBoot/task/data/task.mv.db [1.4.200/7]" [50000-200]
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:505)
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:429)
 	... 33 more
-Caused by: java.lang.IllegalStateException: The file is locked: nio:D:/Projects/SpringBoot/todo/data/todo.mv.db [1.4.200/7]
+Caused by: java.lang.IllegalStateException: The file is locked: nio:D:/Projects/SpringBoot/task/data/task.mv.db [1.4.200/7]
 	at org.h2.mvstore.DataUtils.newIllegalStateException(DataUtils.java:950)
 	at org.h2.mvstore.FileStore.open(FileStore.java:166)
 	at org.h2.mvstore.MVStore.<init>(MVStore.java:381)
@@ -3992,7 +3992,7 @@ org.h2.jdbc.JdbcSQLNonTransientConnectionException: Database is already closed (
 	at org.springframework.context.support.AbstractApplicationContext.doClose(AbstractApplicationContext.java:1030)
 	at org.springframework.context.support.AbstractApplicationContext$1.run(AbstractApplicationContext.java:949)
 2020-08-02 21:30:23 database: flush
-org.h2.message.DbException: General error: "java.lang.IllegalStateException: The file is locked: nio:D:/Projects/SpringBoot/todo/data/todo.mv.db [1.4.200/7]" [50000-200]
+org.h2.message.DbException: General error: "java.lang.IllegalStateException: The file is locked: nio:D:/Projects/SpringBoot/task/data/task.mv.db [1.4.200/7]" [50000-200]
 	at org.h2.message.DbException.get(DbException.java:194)
 	at org.h2.message.DbException.convert(DbException.java:347)
 	at org.h2.mvstore.db.MVTableEngine$1.uncaughtException(MVTableEngine.java:93)
@@ -4026,11 +4026,11 @@ org.h2.message.DbException: General error: "java.lang.IllegalStateException: The
 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
 	at java.lang.Thread.run(Thread.java:813)
-Caused by: org.h2.jdbc.JdbcSQLNonTransientException: General error: "java.lang.IllegalStateException: The file is locked: nio:D:/Projects/SpringBoot/todo/data/todo.mv.db [1.4.200/7]" [50000-200]
+Caused by: org.h2.jdbc.JdbcSQLNonTransientException: General error: "java.lang.IllegalStateException: The file is locked: nio:D:/Projects/SpringBoot/task/data/task.mv.db [1.4.200/7]" [50000-200]
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:505)
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:429)
 	... 33 more
-Caused by: java.lang.IllegalStateException: The file is locked: nio:D:/Projects/SpringBoot/todo/data/todo.mv.db [1.4.200/7]
+Caused by: java.lang.IllegalStateException: The file is locked: nio:D:/Projects/SpringBoot/task/data/task.mv.db [1.4.200/7]
 	at org.h2.mvstore.DataUtils.newIllegalStateException(DataUtils.java:950)
 	at org.h2.mvstore.FileStore.open(FileStore.java:166)
 	at org.h2.mvstore.MVStore.<init>(MVStore.java:381)
