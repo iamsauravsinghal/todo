@@ -5,8 +5,6 @@ import java.time.LocalDate;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import com.saurav.task.exception.InvalidExpectedDateException;
-import com.saurav.task.exception.InvalidPriorityException;
 import com.saurav.task.exception.ServiceException;
 import com.saurav.task.model.Task;
 

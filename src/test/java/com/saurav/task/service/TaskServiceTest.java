@@ -17,12 +17,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 
 import com.saurav.task.dao.TaskDao;
-import com.saurav.task.exception.DeleteFailedException;
-import com.saurav.task.exception.InvalidExpectedDateException;
-import com.saurav.task.exception.InvalidPriorityException;
-import com.saurav.task.exception.NoResultFoundException;
 import com.saurav.task.exception.ServiceException;
-import com.saurav.task.exception.UpdateFailedException;
 import com.saurav.task.model.Task;
 
 
