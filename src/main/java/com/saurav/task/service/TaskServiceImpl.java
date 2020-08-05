@@ -21,14 +21,23 @@ public class TaskServiceImpl implements TaskService{
 
 	@Override
 	public Integer addTaskItem(Task task){
+		System.out.println("O hello");
 		TaskValidator.validateTask(task);
+		Integer result;
 		try {
-		
-		return taskDao.addTaskItem(task);
+		result=taskDao.addTaskItem(task);
 		}
 		catch(Exception e) {
+			System.out.println(e);
 			throw new ServiceException("SERVICE.add_failed", HttpStatus.EXPECTATION_FAILED);
 		}
+		System.out.println(result);
+		if(result==-1)
+			throw new ServiceException("SERVICE.already_subtask", HttpStatus.EXPECTATION_FAILED);
+		else if(result==-2)
+			throw new ServiceException("SERVICE.parent_not_exist", HttpStatus.EXPECTATION_FAILED);
+		else
+			return result;
 	}
 
 	@Override

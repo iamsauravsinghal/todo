@@ -1,6 +1,7 @@
 package com.saurav.task.model;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class Task
 {
@@ -8,9 +9,38 @@ public class Task
 	private String taskName;
 	private Integer priority;
 	private LocalDate expectedDate;
+	private Integer parentId;
+	private String status;
+	private List<Task> subTasks;
+	
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public Integer getParentId() {
+		return parentId;
+	}
+
+	public void setParentId(Integer parentId) {
+		this.parentId = parentId;
+	}
+
+	public List<Task> getSubTasks() {
+		return subTasks;
+	}
+
+	public void setSubTasks(List<Task> subTasks) {
+		this.subTasks = subTasks;
+	}
+
 	public Integer getId() {
 		return id;
 	}
+	
 	public void setId(Integer id) {
 		this.id = id;
 	}

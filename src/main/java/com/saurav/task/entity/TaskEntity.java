@@ -1,12 +1,16 @@
 package com.saurav.task.entity;
 
 import java.time.LocalDate;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -15,11 +19,34 @@ public class TaskEntity {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
-	@Column(name="task_name")
 	private String taskName;
 	private int priority;
-	@Column(name="expected_date")
+	@Column(name = "parent_id")
+	private Integer parentId;
+	private String status;
 	private LocalDate expectedDate;
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name="parent_id", unique = true)
+	private List<TaskEntity> taskEntities;
+	
+	public Integer getParentId() {
+		return parentId;
+	}
+	public void setParentId(Integer parentId) {
+		this.parentId = parentId;
+	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	public List<TaskEntity> getTaskEntities() {
+		return taskEntities;
+	}
+	public void setTaskEntities(List<TaskEntity> taskEntities) {
+		this.taskEntities = taskEntities;
+	}
 	public Integer getId() {
 		return id;
 	}

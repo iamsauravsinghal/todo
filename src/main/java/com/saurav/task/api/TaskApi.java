@@ -14,13 +14,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.saurav.task.model.Task;
 import com.saurav.task.service.TaskService;
 
-@CrossOrigin
 @RestController
 @RequestMapping("/")
 public class TaskApi {
@@ -28,38 +28,34 @@ public class TaskApi {
 	@Autowired
 	private TaskService taskService;
 	
-	@Autowired
-	private Environment environment;
-
 	
 	@GetMapping(value="/task/{searchText}")
+	@ResponseStatus(code = HttpStatus.OK)
 	public List<Task> getTasks(@PathVariable String searchText){
 			List<Task> tasks = taskService.getTasks(searchText);
 			return tasks;
 	}
 	
 	@PostMapping(value="/task")
-	public HttpStatus addTaskItem(@RequestBody Task task){
-			Integer id = taskService.addTaskItem(task);
-			return HttpStatus.CREATED;
+	@ResponseStatus(code = HttpStatus.CREATED)
+	public String addTaskItem(@RequestBody Task task){
+		Integer id = taskService.addTaskItem(task);
+			System.out.println("Id is"+id);
+			return "Task created successfully with id:"+id;
 	}
 	
 	@PutMapping(value="/task")
-	public ResponseEntity<Task> updateItem(@RequestBody Task task){
-		try {
+	@ResponseStatus(code = HttpStatus.OK)
+	public Task updateItem(@RequestBody Task task){
 			Task taskResult = taskService.updateItem(task);
-			return new ResponseEntity<>(taskResult, HttpStatus.OK);
-		}
-		catch(Exception e) {
-			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, environment.getProperty(e.getMessage()));
-		}
+			return taskResult;
 	}
 	
 	@DeleteMapping(value="/task/{id}")
-	public HttpStatus closeTaskItem(@PathVariable Integer id){
+	@ResponseStatus(code = HttpStatus.OK)
+	public String closeTaskItem(@PathVariable Integer id){
 			taskService.closeTaskItem(id);
-			String successMessage = "Task item closed successfully";
-			return HttpStatus.OK;
+			return "Task item closed successfully";
 	}
 	
 
