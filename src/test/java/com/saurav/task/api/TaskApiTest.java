@@ -36,16 +36,18 @@ class TaskApiTest {
 	private TaskService taskService;
 	
 	@Test
-	public void addTaskItem() throws Exception{
+	void addTaskItem() throws Exception{
 		Task task=new Task();
 		task.setExpectedDate(LocalDate.now());
+		task.setId(0);
 		task.setPriority(2);
 		task.setStatus("open");
+		task.setExpectedDate(LocalDate.now());
 		task.setTaskName("Test Task");
-		Mockito.when(this.taskService.addTaskItem(task)).thenReturn(1);
+		Mockito.when(this.taskService.addTaskItem(task)).thenReturn(task.getId());
 		this.mvc.perform(MockMvcRequestBuilders
 				.post("/task")
-				.accept(MediaType.APPLICATION_JSON)
+//				.accept(MediaType.APPLICATION_JSON)
 				.contentType(MediaType.APPLICATION_JSON)
 				.characterEncoding("UTF-8")
 				.content(this.mapper.writeValueAsString(task)))
@@ -55,7 +57,7 @@ class TaskApiTest {
 	}
 	
 	@Test
-	public void updateTaskItem() throws Exception{
+	void updateTaskItem() throws Exception{
 		Task task = new Task();
 		task.setExpectedDate(LocalDate.now());
 		task.setPriority(2);
@@ -76,19 +78,27 @@ class TaskApiTest {
 	}
 	
 	@Test
-	public void closeTaskItem() throws Exception{		
-//		when(this.taskService.updateItem(task)).thenReturn(task);
+	void closeTaskItem() throws Exception{		
+		this.mvc.perform(MockMvcRequestBuilders
+				.put("/task/1")
+				.accept(MediaType.APPLICATION_JSON)
+				.characterEncoding("UTF-8"))
+		.andDo(MockMvcResultHandlers.print())
+		.andExpect(MockMvcResultMatchers.status().isOk());
+	}
+	
+	@Test
+	void deleteTaskItem() throws Exception{		
 		this.mvc.perform(MockMvcRequestBuilders
 				.delete("/task/1")
 				.accept(MediaType.APPLICATION_JSON)
 				.characterEncoding("UTF-8"))
 		.andDo(MockMvcResultHandlers.print())
 		.andExpect(MockMvcResultMatchers.status().isOk());
-//		.andExpect(MockMvcResultMatchers.content().string(Matchers.containsString("0")));
 	}
 	
 	@Test
-	public void getTasks() throws Exception{
+	void getTasks() throws Exception{
 		Task task = new Task();
 		task.setExpectedDate(LocalDate.now());
 		task.setPriority(2);
@@ -106,7 +116,6 @@ class TaskApiTest {
 				.characterEncoding("UTF-8"))
 		.andDo(MockMvcResultHandlers.print())
 		.andExpect(MockMvcResultMatchers.status().isOk());
-//		.andExpect(MockMvcResultMatchers.content().string(Matchers.containsString("0")));
 	}
 	
 	

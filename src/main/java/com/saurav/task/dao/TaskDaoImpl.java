@@ -25,8 +25,6 @@ public class TaskDaoImpl implements TaskDao{
 			TaskEntity parentEntity = entityManager.find(TaskEntity.class, task.getParentId());
 			if(parentEntity!=null) {
 				List<TaskEntity> taskEntities = parentEntity.getTaskEntities();
-				if(taskEntities==null)
-					taskEntities =new ArrayList<>();
 					if(parentEntity.getParentId()==null) {
 						TaskEntity subTaskEntity= new TaskEntity();
 						subTaskEntity.setTaskName(task.getTaskName());
@@ -37,7 +35,6 @@ public class TaskDaoImpl implements TaskDao{
 						entityManager.persist(subTaskEntity);
 						taskEntities.add(subTaskEntity);
 						parentEntity.setTaskEntities(taskEntities);
-						System.out.println("Reaching: "+subTaskEntity.getId());
 						return subTaskEntity.getId();
 					}
 					else {
@@ -55,7 +52,7 @@ public class TaskDaoImpl implements TaskDao{
 			taskEntity.setPriority(task.getPriority());
 			taskEntity.setStatus(task.getStatus());
 			taskEntity.setParentId(task.getParentId());
-			taskEntity.setTaskEntities(new LinkedList<TaskEntity>());
+			taskEntity.setTaskEntities(new LinkedList<>());
 			entityManager.persist(taskEntity);
 			return taskEntity.getId();
 		}
@@ -89,7 +86,7 @@ public class TaskDaoImpl implements TaskDao{
 
 	@Override
 	public List<Task> getTasks(String searchText) {
-		String queryString="SELECT e FROM TaskEntity e WHERE e.parentId IS NULL AND e.taskName like '%"+searchText+"%' ORDER BY e.priority DESC";
+		String queryString="SELECT e FROM TaskEntity e WHERE e.parentId IS NULL AND e.taskName like '%"+searchText+"%' ORDER BY e.priority DESC, e.status, e.expectedDate";
 		Query query = entityManager.createQuery(queryString);
 		@SuppressWarnings("unchecked")
 		List<TaskEntity> taskEntities= query.getResultList();
@@ -100,7 +97,7 @@ public class TaskDaoImpl implements TaskDao{
 				task.setId(taskEntity.getId());
 				task.setExpectedDate(taskEntity.getExpectedDate());
 				task.setPriority(taskEntity.getPriority());
-				task.setTaskName(taskEntity.getTaskName());
+				task.setTaskName(taskEntity.getTaskName());  
 				task.setStatus(taskEntity.getStatus());
 				List<Task> subTasks = new ArrayList<>();
 				List<TaskEntity> subTaskEntities = taskEntity.getTaskEntities();
@@ -125,13 +122,14 @@ public class TaskDaoImpl implements TaskDao{
 
 	@Override
 	public Integer closeTaskItem(Integer id) {
+		final String status="closed";
 		TaskEntity taskEntity = entityManager.find(TaskEntity.class, id);
 		if(taskEntity!=null) {
-			taskEntity.setStatus("closed");
+			taskEntity.setStatus(status);
 			List<TaskEntity> subTaskEntities = taskEntity.getTaskEntities();
 			if(!subTaskEntities.isEmpty()) {
 				for(TaskEntity subTaskEntity:subTaskEntities) {
-					subTaskEntity.setStatus("closed");
+					subTaskEntity.setStatus(status);
 				}
 				taskEntity.setTaskEntities(subTaskEntities);
 			}
@@ -140,18 +138,15 @@ public class TaskDaoImpl implements TaskDao{
 				boolean flag=false;
 				if(parentTaskEntity!=null) {
 					List<TaskEntity> parentTaskEntities=parentTaskEntity.getTaskEntities();
-					System.out.println(parentTaskEntities.size());
 					for(TaskEntity subTaskEntities1:parentTaskEntities) {
-						System.out.println(subTaskEntities1.getStatus());
-						if(!subTaskEntities1.getStatus().equals("closed"))
+						if(!subTaskEntities1.getStatus().equals(status))
 						{
 							flag=true;
 							break;
 						}
 					}
-					System.out.println(flag);
-					if(flag==false)
-						parentTaskEntity.setStatus("closed");
+					if(!flag)
+						parentTaskEntity.setStatus(status);
 				}
 			}
 			return 1;
@@ -159,13 +154,13 @@ public class TaskDaoImpl implements TaskDao{
 		return 0;
 	}
 	
-//	@Override
-//	public Integer closeTaskItem(Integer id) {
-//		TaskEntity taskEntity = entityManager.find(TaskEntity.class, id);
-//		if(taskEntity!=null) {
-//			entityManager.remove(taskEntity);
-//			return 1;
-//		}
-//		return 0;
-//	}
+	@Override
+	public Integer deleteTaskItem(Integer id) {
+		TaskEntity taskEntity = entityManager.find(TaskEntity.class, id);
+		if(taskEntity!=null) {
+			entityManager.remove(taskEntity);
+			return 1;
+		}
+		return 0;
+	}
 }

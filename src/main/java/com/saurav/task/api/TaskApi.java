@@ -3,9 +3,7 @@ package com.saurav.task.api;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,11 +14,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.server.ResponseStatusException;
-
 import com.saurav.task.model.Task;
 import com.saurav.task.service.TaskService;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/")
 public class TaskApi {
@@ -32,30 +29,34 @@ public class TaskApi {
 	@GetMapping(value="/task/{searchText}")
 	@ResponseStatus(code = HttpStatus.OK)
 	public List<Task> getTasks(@PathVariable String searchText){
-			List<Task> tasks = taskService.getTasks(searchText);
-			return tasks;
+			return taskService.getTasks(searchText);
 	}
 	
 	@PostMapping(value="/task")
 	@ResponseStatus(code = HttpStatus.CREATED)
 	public String addTaskItem(@RequestBody Task task){
 		Integer id = taskService.addTaskItem(task);
-			System.out.println("Id is"+id);
 			return "Task created successfully with id:"+id;
 	}
 	
 	@PutMapping(value="/task")
 	@ResponseStatus(code = HttpStatus.OK)
 	public Task updateItem(@RequestBody Task task){
-			Task taskResult = taskService.updateItem(task);
-			return taskResult;
+			return taskService.updateItem(task);
 	}
 	
-	@DeleteMapping(value="/task/{id}")
+	@PutMapping(value="/task/{id}")
 	@ResponseStatus(code = HttpStatus.OK)
 	public String closeTaskItem(@PathVariable Integer id){
 			taskService.closeTaskItem(id);
 			return "Task item closed successfully";
+	}
+	
+	@DeleteMapping(value="/task/{id}")
+	@ResponseStatus(code = HttpStatus.OK)
+	public String deleteTaskItem(@PathVariable Integer id){
+			taskService.deleteTaskItem(id);
+			return "Task item deleted successfully";
 	}
 	
 

@@ -21,17 +21,14 @@ public class TaskServiceImpl implements TaskService{
 
 	@Override
 	public Integer addTaskItem(Task task){
-		System.out.println("O hello");
 		TaskValidator.validateTask(task);
 		Integer result;
 		try {
 		result=taskDao.addTaskItem(task);
 		}
 		catch(Exception e) {
-			System.out.println(e);
 			throw new ServiceException("SERVICE.add_failed", HttpStatus.EXPECTATION_FAILED);
 		}
-		System.out.println(result);
 		if(result==-1)
 			throw new ServiceException("SERVICE.already_subtask", HttpStatus.EXPECTATION_FAILED);
 		else if(result==-2)
@@ -66,6 +63,14 @@ public class TaskServiceImpl implements TaskService{
 			throw new ServiceException("SERVICE.no_result_found",HttpStatus.NOT_FOUND);
 		}
 		return results;
+	}
+	
+	@Override
+	public Integer deleteTaskItem(Integer id) {
+		Integer result=taskDao.deleteTaskItem(id);
+		if(result==0)
+			throw new ServiceException("SERVICE.delete_failed", HttpStatus.BAD_REQUEST);
+		return result;
 	}
 	
 }

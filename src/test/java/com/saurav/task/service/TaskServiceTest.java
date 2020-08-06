@@ -47,7 +47,7 @@ class TaskServiceTest {
 		String searchText= "Manage";
 		when(this.taskDao.getTasks(anyString())).thenReturn(new ArrayList<Task>());
 		Exception exception = Assertions.assertThrows(ServiceException.class,()->this.taskService.getTasks(searchText));
-		Assertions.assertTrue("SERVICE.no_result_found".equals(exception.getMessage()));
+		Assertions.assertEquals("SERVICE.no_result_found",exception.getMessage());
 	}
 	
 	@Test
@@ -68,7 +68,7 @@ class TaskServiceTest {
 		task.setExpectedDate(LocalDate.now());
 		when(this.taskDao.addTaskItem(task)).thenReturn(1);
 		Exception exception = Assertions.assertThrows(ServiceException.class, ()->this.taskService.addTaskItem(task));
-		Assertions.assertTrue("VALIDATOR.invalid_priority_value".equals(exception.getMessage()));
+		Assertions.assertEquals("VALIDATOR.invalid_priority_value",exception.getMessage());
 	}
 	
 	@Test
@@ -78,7 +78,7 @@ class TaskServiceTest {
 		task.setExpectedDate(LocalDate.now().minusDays(2));
 		when(this.taskDao.addTaskItem(task)).thenReturn(1);
 		Exception exception =Assertions.assertThrows(ServiceException.class, ()->this.taskService.addTaskItem(task));
-		Assertions.assertTrue("VALIDATOR.invalid_expected_date".equals(exception.getMessage()));
+		Assertions.assertEquals("VALIDATOR.invalid_expected_date",exception.getMessage());
 	}
 	
 	@Test
@@ -90,7 +90,7 @@ class TaskServiceTest {
 		task.setExpectedDate(LocalDate.now());
 		when(this.taskDao.addTaskItem(task)).thenReturn(-1);
 		Exception exception = Assertions.assertThrows(ServiceException.class, ()->this.taskService.addTaskItem(task));
-		Assertions.assertTrue("SERVICE.already_subtask".equals(exception.getMessage()));
+		Assertions.assertEquals("SERVICE.already_subtask",exception.getMessage());
 	}
 	
 	@Test
@@ -102,7 +102,7 @@ class TaskServiceTest {
 		task.setExpectedDate(LocalDate.now());
 		when(this.taskDao.addTaskItem(task)).thenReturn(-2);
 		Exception exception = Assertions.assertThrows(ServiceException.class, ()->this.taskService.addTaskItem(task));
-		Assertions.assertTrue("SERVICE.parent_not_exist".equals(exception.getMessage()));
+		Assertions.assertEquals("SERVICE.parent_not_exist",exception.getMessage());
 	}
 		
 	@Test
@@ -114,7 +114,7 @@ class TaskServiceTest {
 		task.setExpectedDate(LocalDate.now());
 		when(this.taskDao.updateItem(task)).thenReturn(null);
 		Exception exception =Assertions.assertThrows(ServiceException.class, ()->this.taskService.updateItem(task));
-		Assertions.assertTrue("SERVICE.nothing_updated".equals(exception.getMessage()));
+		Assertions.assertEquals("SERVICE.nothing_updated",exception.getMessage());
 	}
 	
 	@Test
@@ -124,7 +124,7 @@ class TaskServiceTest {
 		task.setExpectedDate(LocalDate.now());
 		when(this.taskDao.updateItem(task)).thenReturn(task);	
 		Exception exception =Assertions.assertThrows(ServiceException.class, ()->this.taskService.updateItem(task));
-		Assertions.assertTrue("VALIDATOR.invalid_priority_value".equals(exception.getMessage()));
+		Assertions.assertEquals("VALIDATOR.invalid_priority_value",exception.getMessage());
 	}
 	
 	@Test
@@ -134,7 +134,7 @@ class TaskServiceTest {
 		task.setExpectedDate(LocalDate.now().minusDays(2));
 		when(this.taskDao.updateItem(task)).thenReturn(task);	
 		Exception exception =Assertions.assertThrows(ServiceException.class, ()->this.taskService.updateItem(task));
-		Assertions.assertTrue("VALIDATOR.invalid_expected_date".equals(exception.getMessage()));
+		Assertions.assertEquals("VALIDATOR.invalid_expected_date",exception.getMessage());
 	}
 	
 	@Test
@@ -149,17 +149,32 @@ class TaskServiceTest {
 	}
 	
 	@Test
-	void validTaskDelete() throws Exception{
+	void validTaskClose() throws Exception{
 		Integer id=1;
 		when(this.taskDao.closeTaskItem(anyInt())).thenReturn(1);
 		Assertions.assertEquals(1,taskService.closeTaskItem(id));
 	}
 	
 	@Test
-	void invalidTaskDelete() throws Exception{
+	void invalidTaskClose() throws Exception{
 		Integer id=0;
 		when(this.taskDao.closeTaskItem(anyInt())).thenReturn(0);
 		Exception exception =Assertions.assertThrows(ServiceException.class,()-> this.taskService.closeTaskItem(id));
-		Assertions.assertTrue("SERVICE.close_failed".equals(exception.getMessage()));
+		Assertions.assertEquals("SERVICE.close_failed",exception.getMessage());
+	}
+	
+	@Test
+	void validTaskDelete() throws Exception{
+		Integer id=1;
+		when(this.taskDao.deleteTaskItem(anyInt())).thenReturn(1);
+		Assertions.assertEquals(1,taskService.deleteTaskItem(id));
+	}
+	
+	@Test
+	void invalidTaskDelete() throws Exception{
+		Integer id=0;
+		when(this.taskDao.deleteTaskItem(anyInt())).thenReturn(0);
+		Exception exception =Assertions.assertThrows(ServiceException.class,()-> this.taskService.deleteTaskItem(id));
+		Assertions.assertEquals("SERVICE.delete_failed",exception.getMessage());
 	}
 }
