@@ -1,9 +1,9 @@
 # Task API
 
-##PORT
+## PORT
 Works on PORT 4000
 
-##API Calls
+## API Calls
 For adding and updating task use
 
 	[POST/PUT]: /task
