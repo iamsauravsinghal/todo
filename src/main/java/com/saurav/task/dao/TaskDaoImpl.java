@@ -1,6 +1,8 @@
 package com.saurav.task.dao;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -112,6 +114,7 @@ public class TaskDaoImpl implements TaskDao{
 						subTask.setParentId(subTaskEntity.getParentId());
 						subTasks.add(subTask);
 					}
+					Collections.sort(subTasks, new SortTask());
 					task.setSubTasks(subTasks);
 				}
 				tasks.add(task);
@@ -164,3 +167,25 @@ public class TaskDaoImpl implements TaskDao{
 		return 0;
 	}
 }
+
+class SortTask implements Comparator<Task> 
+{ 
+    // Used for sorting in ascending order of 
+    // roll number 
+    public int compare(Task a, Task b) 
+    { 
+        Integer diff=b.getPriority()-a.getPriority();
+        if(diff!=0) {
+        	return diff;
+        }
+        else {
+        	diff = a.getStatus().compareTo(b.getStatus());
+        	if(diff!=0) {
+        		return diff;
+        	}
+        	else {
+        		return a.getExpectedDate().compareTo((b.getExpectedDate()));
+        	}
+        }
+    } 
+} 
