@@ -1,8 +1,6 @@
 package com.saurav.task.dao;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -21,46 +19,52 @@ public class TaskDaoImpl implements TaskDao{
 	@PersistenceContext
 	private EntityManager entityManager;
 	
+	
 	@Override
 	public Integer addTaskItem(Task task) {
-		if(task.getParentId()!=null) {
-			TaskEntity parentEntity = entityManager.find(TaskEntity.class, task.getParentId());
-			if(parentEntity!=null) {
-				List<TaskEntity> taskEntities = parentEntity.getTaskEntities();
-					if(parentEntity.getParentId()==null) {
-						TaskEntity subTaskEntity= new TaskEntity();
-						subTaskEntity.setTaskName(task.getTaskName());
-						subTaskEntity.setExpectedDate(task.getExpectedDate());
-						subTaskEntity.setPriority(task.getPriority());
-						subTaskEntity.setStatus(task.getStatus());
-						subTaskEntity.setParentId(task.getParentId());
-						entityManager.persist(subTaskEntity);
-						taskEntities.add(subTaskEntity);
-						parentEntity.setTaskEntities(taskEntities);
-						return subTaskEntity.getId();
-					}
-					else {
-						return -1;
-					}
-			}
-			else {
-				return -2;
-			} 
-		}
-		else {
-			TaskEntity taskEntity= new TaskEntity();
-			taskEntity.setTaskName(task.getTaskName());
-			taskEntity.setExpectedDate(task.getExpectedDate());
-			taskEntity.setPriority(task.getPriority());
-			taskEntity.setStatus(task.getStatus());
-			taskEntity.setParentId(task.getParentId());
-			taskEntity.setTaskEntities(new LinkedList<>());
-			entityManager.persist(taskEntity);
-			return taskEntity.getId();
-		}
+		TaskEntity taskEntity= new TaskEntity();
+		taskEntity.setTaskName(task.getTaskName());
+		taskEntity.setExpectedDate(task.getExpectedDate());
+		taskEntity.setPriority(task.getPriority());
+		taskEntity.setStatus(task.getStatus());
+		taskEntity.setParentId(task.getParentId());
+		entityManager.persist(taskEntity);
+		return taskEntity.getId();
 	}
 	
-	
+	@Override
+	public Task getTaskById(Integer id) {
+		TaskEntity taskEntity = entityManager.find(TaskEntity.class, id);
+		Task task =new Task();
+		if(taskEntity!=null) {
+			task.setId(taskEntity.getId());
+			task.setExpectedDate(taskEntity.getExpectedDate());
+			task.setPriority(taskEntity.getPriority());
+			task.setTaskName(taskEntity.getTaskName());  
+			task.setParentId(taskEntity.getParentId());
+			task.setStatus(taskEntity.getStatus());
+			String queryString ="SELECT e FROM TaskEntity e WHERE e.parentId = :parentId ORDER BY e.priority DESC, e.status, e.expectedDate";
+			Query query = entityManager.createQuery(queryString);
+			query.setParameter("parentId", task.getId());
+			@SuppressWarnings("unchecked")
+			List<TaskEntity> taskEntities= query.getResultList();
+			List<Task> subTasks = new LinkedList<>();
+			if(taskEntities!=null && !taskEntities.isEmpty()) {
+				for(TaskEntity subTaskEntity:taskEntities) {
+					Task subTask = new Task();
+					subTask.setId(subTaskEntity.getId());
+					subTask.setExpectedDate(subTaskEntity.getExpectedDate());
+					subTask.setPriority(subTaskEntity.getPriority());
+					subTask.setTaskName(subTaskEntity.getTaskName());
+					subTask.setStatus(subTaskEntity.getStatus());
+					subTask.setParentId(subTaskEntity.getParentId());
+					subTasks.add(subTask);
+				}
+				task.setSubTasks(subTasks);
+			}
+		}
+		return task;
+	}
 		
 	@Override
 	public Task updateItem(Task task) {
@@ -85,76 +89,27 @@ public class TaskDaoImpl implements TaskDao{
 		}
 		return null;
 	}
+	
 
 	@Override
-	public List<Task> getTasks(String searchText) {
+	public List<Integer> getTasks(String searchText) {
 		String queryString="SELECT e FROM TaskEntity e WHERE e.parentId IS NULL AND e.taskName like '%"+searchText+"%' ORDER BY e.priority DESC, e.status, e.expectedDate";
 		Query query = entityManager.createQuery(queryString);
 		@SuppressWarnings("unchecked")
 		List<TaskEntity> taskEntities= query.getResultList();
-		List<Task> tasks = new ArrayList<>();
+		List<Integer> taskIds = new ArrayList<>();
 		if(!taskEntities.isEmpty()) {
 			for(TaskEntity taskEntity:taskEntities) {
-				Task task = new Task();
-				task.setId(taskEntity.getId());
-				task.setExpectedDate(taskEntity.getExpectedDate());
-				task.setPriority(taskEntity.getPriority());
-				task.setTaskName(taskEntity.getTaskName());  
-				task.setStatus(taskEntity.getStatus());
-				List<Task> subTasks = new ArrayList<>();
-				List<TaskEntity> subTaskEntities = taskEntity.getTaskEntities();
-				if(!subTaskEntities.isEmpty()) {
-					for(TaskEntity subTaskEntity:subTaskEntities) {
-						Task subTask = new Task();
-						subTask.setId(subTaskEntity.getId());
-						subTask.setExpectedDate(subTaskEntity.getExpectedDate());
-						subTask.setPriority(subTaskEntity.getPriority());
-						subTask.setTaskName(subTaskEntity.getTaskName());
-						subTask.setStatus(subTaskEntity.getStatus());
-						subTask.setParentId(subTaskEntity.getParentId());
-						subTasks.add(subTask);
-					}
-					Collections.sort(subTasks, new SortTask());
-					task.setSubTasks(subTasks);
-				}
-				tasks.add(task);
+				taskIds.add(taskEntity.getId());
 			}
 		}
-		return tasks;
+		return taskIds;
 	}
-
+	
 	@Override
-	public Integer closeTaskItem(Integer id) {
-		final String status="closed";
+	public void closeTaskItem(Integer id) {
 		TaskEntity taskEntity = entityManager.find(TaskEntity.class, id);
-		if(taskEntity!=null) {
-			taskEntity.setStatus(status);
-			List<TaskEntity> subTaskEntities = taskEntity.getTaskEntities();
-			if(!subTaskEntities.isEmpty()) {
-				for(TaskEntity subTaskEntity:subTaskEntities) {
-					subTaskEntity.setStatus(status);
-				}
-				taskEntity.setTaskEntities(subTaskEntities);
-			}
-			if(taskEntity.getParentId()!=null) {
-				TaskEntity parentTaskEntity = entityManager.find(TaskEntity.class, taskEntity.getParentId());
-				boolean flag=false;
-				if(parentTaskEntity!=null) {
-					List<TaskEntity> parentTaskEntities=parentTaskEntity.getTaskEntities();
-					for(TaskEntity subTaskEntities1:parentTaskEntities) {
-						if(!subTaskEntities1.getStatus().equals(status))
-						{
-							flag=true;
-							break;
-						}
-					}
-					if(!flag)
-						parentTaskEntity.setStatus(status);
-				}
-			}
-			return 1;
-		}
-		return 0;
+		taskEntity.setStatus("closed");
 	}
 	
 	@Override
@@ -167,25 +122,3 @@ public class TaskDaoImpl implements TaskDao{
 		return 0;
 	}
 }
-
-class SortTask implements Comparator<Task> 
-{ 
-    // Used for sorting in ascending order of 
-    // roll number 
-    public int compare(Task a, Task b) 
-    { 
-        Integer diff=b.getPriority()-a.getPriority();
-        if(diff!=0) {
-        	return diff;
-        }
-        else {
-        	diff = a.getStatus().compareTo(b.getStatus());
-        	if(diff!=0) {
-        		return diff;
-        	}
-        	else {
-        		return a.getExpectedDate().compareTo((b.getExpectedDate()));
-        	}
-        }
-    } 
-} 

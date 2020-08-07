@@ -49,22 +49,17 @@ class TaskDaoTest {
 		Assertions.assertTrue(taskDao.addTaskItem(task)>0);
 	}
 	
-	@Test
-	void validTaskClose() throws Exception{
-		Integer id = 1;
-		Assertions.assertEquals(1,taskDao.closeTaskItem(id));
-	}
-	
-	@Test
-	void invalidTaskClose() throws Exception{
-		Integer id = 0;
-		Assertions.assertEquals(0,taskDao.closeTaskItem(id));
-	}
 	
 	@Test
 	void validTaskDelete() throws Exception{
 		Integer id = 1;
 		Assertions.assertEquals(1,taskDao.deleteTaskItem(id));
+	}
+	
+	@Test
+	void getTaskById() throws Exception{
+		Integer id = 1;
+		Assertions.assertEquals(1,taskDao.getTaskById(id).getId());
 	}
 	
 	@Test
